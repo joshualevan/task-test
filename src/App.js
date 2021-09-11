@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import Lists from './components/Lists'
+import Input from './components/Input'
+
+// add ENTER keypress functionality
+//When whole list complete, trigger TADA! event
+//When clearing completed tasks and list array.length is 0, ask to delete whole list
+//FIX BUG --- local storage not storing complete
+
+const LOCAL_STORAGE_KEY = 'tadaApp.lists'
 
 function App() {
+  const [lists, setLists] = useState([])
+
+  useEffect(() => {
+    const storedLists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    storedLists && setLists(storedLists)
+  }, [])
+
+  useEffect(()=>{
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lists))
+  }, [lists])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Input lists={lists} setLists={setLists}/>
+      <Lists lists={lists} setLists={setLists}/>
+    </>
   );
 }
 
