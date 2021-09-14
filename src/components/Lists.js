@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List'
 
-export default function Lists({ lists, setLists, setUpdateEditing, updateComplete, setUpdateComplete }) {
+export default function Lists({ lists, setLists, setUpdateStorage, updateStorage }) {
     return (
         <div>
             {lists.map(list => <List 
@@ -9,9 +9,8 @@ export default function Lists({ lists, setLists, setUpdateEditing, updateComplet
             list={list}
             lists={lists}
             setLists={setLists}
-            setUpdateEditing={setUpdateEditing}
-            updateComplete={updateComplete}
-            setUpdateComplete={setUpdateComplete}
+            setUpdateStorage={setUpdateStorage}
+            updateStorage={updateStorage}
             />)}
         </div>
     )

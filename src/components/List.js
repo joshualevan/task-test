@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { completions } from '../data'
 
-export default function List({ list, lists, setLists, setUpdateEditing, updateComplete, setUpdateComplete }) {
+export default function List({ list, lists, setLists, setUpdateStorage, updateStorage }) {
 
     const [editing, setEditing] = useState(false)
     const [complete, setComplete] = useState(false)
@@ -20,7 +20,7 @@ export default function List({ list, lists, setLists, setUpdateEditing, updateCo
 
     const handleComplete = () => {
         setComplete(!complete)
-        setUpdateComplete(!updateComplete)
+        setUpdateStorage(!updateStorage)
         list.complete = !list.complete
     }
 
@@ -30,7 +30,7 @@ export default function List({ list, lists, setLists, setUpdateEditing, updateCo
 
     const handleEditMode = () => {
         setEditing(true)
-        setUpdateEditing(true)
+        setUpdateStorage(true)
     }
 
     const handleConfirmEdit = id => {
@@ -38,14 +38,14 @@ export default function List({ list, lists, setLists, setUpdateEditing, updateCo
             list.listName = editNameRef.current.value
             editNameRef.current.value = null
             setEditing(false)
-            setUpdateEditing(false)
+            setUpdateStorage(false)
         }
     }
 
     const handleIgnoreEdit = () => {
         editNameRef.current.value = null
         setEditing(false)
-        setUpdateEditing(false)
+        updateStorage(false)
     }
     
     return (

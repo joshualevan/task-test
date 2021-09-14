@@ -11,8 +11,7 @@ const LOCAL_STORAGE_KEY = 'tadaApp.lists'
 
 function App() {
   const [lists, setLists] = useState([])
-  const [updateEditing, setUpdateEditing] = useState(false)
-  const [updateComplete, setUpdateComplete] = useState(false)
+  const [updateStorage, setUpdateStorage] = useState(false)
 
   useEffect(() => {
     const storedLists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
@@ -21,16 +20,15 @@ function App() {
 
   useEffect(()=>{
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lists))
-  }, [lists, updateEditing, updateComplete])
+  }, [lists, updateStorage])
 
   return (
     <>
       <Input lists={lists} setLists={setLists}/>
       <Lists lists={lists}
       setLists={setLists}
-      setUpdateEditing={setUpdateEditing}
-      updateComplete={updateComplete}
-      setUpdateComplete={setUpdateComplete}
+      setUpdateStorage={setUpdateStorage}
+      updateStorage={updateStorage}
       />
     </>
   );
