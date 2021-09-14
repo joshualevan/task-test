@@ -15,7 +15,7 @@ export default function List({ list, lists, setLists, setUpdateStorage, updateSt
     useEffect(()=> {
         const random = Math.floor(Math.random()*completions.length)
         const listComplete = lists.filter(list => list.complete === false)
-        listComplete.length === 0 && alert(completions[random])
+        listComplete.length === 0 && console.log(completions[random])
     }, [complete])
 
     const handleComplete = () => {
@@ -38,14 +38,14 @@ export default function List({ list, lists, setLists, setUpdateStorage, updateSt
             list.listName = editNameRef.current.value
             editNameRef.current.value = null
             setEditing(false)
-            setUpdateStorage(false)
+            setUpdateStorage(!updateStorage)
         }
     }
 
     const handleIgnoreEdit = () => {
         editNameRef.current.value = null
         setEditing(false)
-        updateStorage(false)
+        setUpdateStorage(!updateStorage)
     }
     
     return (
