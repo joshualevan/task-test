@@ -1,23 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { completions } from '../data'
 
-export default function List({ list, lists, setLists }) {
+export default function List({ list, lists, setLists, setUpdateEditing, updateComplete, setUpdateComplete }) {
 
     const [editing, setEditing] = useState(false)
     const [complete, setComplete] = useState(false)
 
-
     const editNameRef = useRef()
-    const LOCAL_STORAGE_KEY = 'tadaApp.lists'
-
-    useEffect(() => {
-        const storedLists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-        storedLists && setLists(storedLists)
-      }, [])
-    
-    useEffect(()=>{
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lists))
-      }, [editing, complete])
 
     useEffect(()=> {
         editing && editNameRef.current.focus()
@@ -31,6 +20,7 @@ export default function List({ list, lists, setLists }) {
 
     const handleComplete = () => {
         setComplete(!complete)
+        setUpdateComplete(!updateComplete)
         list.complete = !list.complete
     }
 
@@ -40,6 +30,7 @@ export default function List({ list, lists, setLists }) {
 
     const handleEditMode = () => {
         setEditing(true)
+        setUpdateEditing(true)
     }
 
     const handleConfirmEdit = id => {
@@ -47,12 +38,14 @@ export default function List({ list, lists, setLists }) {
             list.listName = editNameRef.current.value
             editNameRef.current.value = null
             setEditing(false)
+            setUpdateEditing(false)
         }
     }
 
     const handleIgnoreEdit = () => {
         editNameRef.current.value = null
         setEditing(false)
+        setUpdateEditing(false)
     }
     
     return (
