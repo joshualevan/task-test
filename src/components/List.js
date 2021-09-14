@@ -3,10 +3,21 @@ import { completions } from '../data'
 
 export default function List({ list, lists, setLists }) {
 
-    const [complete, setComplete] = useState(false)
     const [editing, setEditing] = useState(false)
+    const [complete, setComplete] = useState(false)
+
 
     const editNameRef = useRef()
+    const LOCAL_STORAGE_KEY = 'tadaApp.lists'
+
+    useEffect(() => {
+        const storedLists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+        storedLists && setLists(storedLists)
+      }, [])
+    
+    useEffect(()=>{
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lists))
+      }, [editing, complete])
 
     useEffect(()=> {
         editing && editNameRef.current.focus()
